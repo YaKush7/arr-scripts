@@ -34,7 +34,7 @@ seasonNaming=$(echo "$namingJson" | jq -r '.season.default')
 
 if [ "$configureNaming" == "true" ] || [ -z "$configureNaming" ]; then
 	log "Updating Sonarr File Naming..."
-	updateArr=$(curl -s "$arrUrl/api/v3/config/naming" -X PUT -H "Content-Type: application/json" -H "X-Api-Key: $arrApiKey" --data-raw "{
+	updateArr=$(curl -s "$arrUrl/api/v3/config/naming/1" -X PUT -H "Content-Type: application/json" -H "X-Api-Key: $arrApiKey" --data-raw "{
 		\"renameEpisodes\":true,
 		\"replaceIllegalCharacters\":true,
 		\"multiEpisodeStyle\":5,
@@ -44,12 +44,6 @@ if [ "$configureNaming" == "true" ] || [ -z "$configureNaming" ]; then
 		\"seriesFolderFormat\":\"$seriesNaming\",
 		\"seasonFolderFormat\":\"$seasonNaming\",
 		\"specialsFolderFormat\":\"$seasonNaming\",
-		\"includeSeriesTitle\":false,
-		\"includeEpisodeTitle\":false,
-		\"includeQuality\":false,
-		\"replaceSpaces\":true,
-		\"separator\":\" - \",
-		\"numberStyle\":\"S{season:00}E{episode:00}\",
 		\"id\":1
 		}")    
 	log "Complete"
